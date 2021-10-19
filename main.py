@@ -1,7 +1,7 @@
 import time, sys
 from transformers import get_linear_schedule_with_warmup, AdamW
 from torch.utils.data import DataLoader, RandomSampler, SequentialSampler
-from config import Hyper, Constants
+from config import Hyper
 from helper import Helper
 from data_input import get_datasets
 from checkpoint import save_checkpoint, load_checkpoint

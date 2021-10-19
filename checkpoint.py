@@ -1,11 +1,11 @@
 from helper import Helper
-from config import Constants
+from config import Filenames
 import os, sys
 import torch as T
 
 
 def save_checkpoint(checkpoint):
-    Helper.check_folder(Constants.backup_dir)
+    Helper.check_folder(Filenames.backup_dir)
     file = get_backup_filename()
     Helper.remove_file(file)
     Helper.printline("=> Saving checkpoint")
@@ -24,6 +24,6 @@ def load_checkpoint(model, optimizer):
     return epoch, model
 
 def get_backup_filename():
-    file = os.path.join(Constants.backup_dir, Constants.backup_file)
+    file = os.path.join(Filenames.backup_dir, Filenames.backup_file)
     return file
  

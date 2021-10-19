@@ -84,23 +84,23 @@ class Hyper:
     def assign_type_dir(content):
         print(f"Model developed for {content}s")
         join_name = lambda content, filename: content + "_" + filename
-        Constants.Tweet_length_graph = join_name(content, Constants.Tweet_length_graph)
-        Constants.country_distribution_graph = join_name(content, Constants.country_distribution_graph)
-        Constants.sentiment_distribution_graph = join_name(content, Constants.sentiment_distribution_graph)        
-        Constants.combined_distribution_graph = join_name(content, Constants.combined_distribution_graph)
-        Constants.training_validation_loss_graph = join_name(content, Constants.training_validation_loss_graph) 
-        Constants.confusion_matrix_graph = join_name(content, Constants.confusion_matrix_graph)
-        Constants.pickle_train_encodings_file = join_name(content, Constants.pickle_train_encodings_file)
-        Constants.pickle_val_encodings_file = join_name(content, Constants.pickle_val_encodings_file)
-        Constants.pickle_test_encodings_file = join_name(content, Constants.pickle_test_encodings_file)
+        Filenames.tweet_length_graph = join_name(content, Filenames.tweet_length_graph_orig)
+        Filenames.country_distribution_graph = join_name(content, Filenames.country_distribution_graph_orig)
+        Filenames.sentiment_distribution_graph = join_name(content, Filenames.sentiment_distribution_graph_orig)        
+        Filenames.combined_distribution_graph = join_name(content, Filenames.combined_distribution_graph_orig)
+        Filenames.training_validation_loss_graph = join_name(content, Filenames.training_validation_loss_graph_orig) 
+        Filenames.confusion_matrix_graph = join_name(content, Filenames.confusion_matrix_graph_orig)
+        Filenames.pickle_train_encodings_file = join_name(content, Filenames.pickle_train_encodings_file_orig)
+        Filenames.pickle_val_encodings_file = join_name(content, Filenames.pickle_val_encodings_file_orig)
+        Filenames.pickle_test_encodings_file = join_name(content, Filenames.pickle_test_encodings_file_orig)
 
     
     [staticmethod]
     def rename_output_files(prefix):
         join_name = lambda prefix, filename: prefix + "_" + filename
-        Constants.backup_file = join_name(prefix, Constants.backup_file)
-        Constants.training_validation_loss_graph = join_name(prefix, Constants.training_validation_loss_graph)
-        Constants.confusion_matrix_graph = join_name(prefix, Constants.confusion_matrix_graph)
+        Filenames.backup_file = join_name(prefix, Filenames.backup_file_orig)
+        Filenames.training_validation_loss_graph = join_name(prefix, Filenames.training_validation_loss_graph_orig)
+        Filenames.confusion_matrix_graph = join_name(prefix, Filenames.confusion_matrix_graph_orig)
         
     [staticmethod]   
     def display():
@@ -117,11 +117,11 @@ class Hyper:
         
     [staticmethod]
     def check_directories():
-        Hyper.check_directory("../" + Constants.rootdir)
-        Hyper.check_directory(Constants.backup_dir)
-        Hyper.check_directory(Constants.backup_model_dir)
-        Hyper.check_directory(Constants.images_dir)
-        Hyper.check_directory(Constants.pickle_dir)
+        Hyper.check_directory("../" + Filenames.rootdir)
+        Hyper.check_directory(Filenames.backup_dir)
+        Hyper.check_directory(Filenames.backup_model_dir)
+        Hyper.check_directory(Filenames.images_dir)
+        Hyper.check_directory(Filenames.pickle_dir)
 
     def check_directory(directory):
         if os.path.exists(directory):
@@ -135,28 +135,39 @@ class Constants:
     NEGATIVE = 0
     load_model = False
     save_model = True
+    tokens_max_length = 256     # reasonable maximum given tweets have a maximum of 280 characters
+    word_threshold = 8
+    # Set the seed value all over the place to make this reproducible.
+    seed_val = 42
+    
+class Filenames:
     #######################################
     # dates 3rd April 2021
     rootdir = "Apr2021Vax_5"
     #######################################
     backup_dir = f"../{rootdir}/backup"
-    backup_file = "model.pt"
+    backup_file_orig = "model.pt"
+    backup_file = ""
     images_dir = f"../{rootdir}/Images"
-    Tweet_length_graph = "tweet_length.png"
-    country_distribution_graph = "country_distribution.png"
-    sentiment_distribution_graph = "sentiment_distribution.png"
-    combined_distribution_graph = "combined_distribution.png"
-    training_validation_loss_graph = "training_validation_loss.png"
-    confusion_matrix_graph = "confusion_matrix.png"
+    tweet_length_graph_orig = "tweet_length.png"
+    country_distribution_graph_orig = "country_distribution.png"
+    sentiment_distribution_graph_orig = "sentiment_distribution.png"
+    combined_distribution_graph_orig = "combined_distribution.png"
+    training_validation_loss_graph_orig = "training_validation_loss.png"
+    confusion_matrix_graph_orig = "confusion_matrix.png"
+    tweet_length_graph = ""
+    country_distribution_graph = ""
+    sentiment_distribution_graph = ""
+    combined_distribution_graph = ""
+    training_validation_loss_graph = ""
+    confusion_matrix_graph = ""
     backup_model_dir = f"../{rootdir}/backup/model"
     pickle_dir = f"../{rootdir}/pickle"            
-    pickle_tokens_file = "tokens.pkl"
-    pickle_train_encodings_file = "encodings_train.pkl"
-    pickle_val_encodings_file = "encodings_val.pkl"
-    pickle_test_encodings_file = "encodings_test.pkl"
-    
-    tokens_max_length = 256     # reasonable maximum given tweets have a maximum of 280 characters
-    word_threshold = 8
-    # Set the seed value all over the place to make this reproducible.
-    seed_val = 42
-
+    pickle_tokens_file_orig = "tokens.pkl"
+    pickle_train_encodings_file_orig = "encodings_train.pkl"
+    pickle_val_encodings_file_orig = "encodings_val.pkl"
+    pickle_test_encodings_file_orig = "encodings_test.pkl"
+    pickle_tokens_file = ""
+    pickle_train_encodings_file = ""
+    pickle_val_encodings_file = ""
+    pickle_test_encodings_file = ""

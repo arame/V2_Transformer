@@ -1,8 +1,5 @@
-import pandas as pd
-from os import path
 from wordcloud import WordCloud, STOPWORDS
-import matplotlib.pyplot as plt
-from config import Constants, Hyper
+from config import Hyper
 from helper import Helper
 from charts import Chart
 

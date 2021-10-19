@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 import numpy as np
-from config import Constants, Hyper
+from config import Filenames, Hyper
 
 class Chart:
     def show_country_distribution(df):
@@ -17,7 +17,7 @@ class Chart:
         plt.title('Country Distribution')
         plt.xlabel('# of Tweets')
         plt.ylabel('')
-        chart = Chart.get_graph_file(Constants.country_distribution_graph)
+        chart = Chart.get_graph_file(Filenames.country_distribution_graph)
         plt.savefig(chart) 
         plt.close()         # Use close to ensure plt is reset for future use
     
@@ -33,7 +33,7 @@ class Chart:
         plt.title('Sentiment Distribution')
         plt.xlabel('# of Tweets')
         plt.ylabel('')
-        chart = Chart.get_graph_file(Constants.sentiment_distribution_graph)
+        chart = Chart.get_graph_file(Filenames.sentiment_distribution_graph)
         plt.savefig(chart) 
         plt.close()         # Use close to ensure plt is reset for future use
     
@@ -49,7 +49,7 @@ class Chart:
         plt.title('Combined Country/Sentiment Distribution')
         plt.xlabel('# of Tweets')
         plt.ylabel('')
-        chart = Chart.get_graph_file(Constants.combined_distribution_graph)
+        chart = Chart.get_graph_file(Filenames.combined_distribution_graph)
         plt.savefig(chart) 
         plt.close()         # Use close to ensure plt is reset for future use
                     
@@ -62,7 +62,7 @@ class Chart:
         plt.rcParams["figure.figsize"] = (10,6)
 
         # Truncate any tweet lengths greater than 128.
-        lengths = [min(l, Constants.tokens_max_length) for l in token_lengths]
+        lengths = [min(l, Filenames.tokens_max_length) for l in token_lengths]
 
         # Plot the distribution of tweet lengths.
         sns.distplot(lengths, kde=False, rug=False)
@@ -70,7 +70,7 @@ class Chart:
         plt.title('Tweet Lengths')
         plt.xlabel('Tweet Length')
         plt.ylabel('# of Tweets') 
-        chart = Chart.get_graph_file(Constants.Tweet_length_graph)
+        chart = Chart.get_graph_file(Filenames.Tweet_length_graph)
         plt.savefig(chart)
         plt.close()         # Use close to ensure plt is reset for future use
 
@@ -90,14 +90,14 @@ class Chart:
         plt.ylabel("Loss")
         plt.legend()
         plt.xticks([1, 2, 3, 4]) 
-        chart = Chart.get_graph_file(Constants.training_validation_loss_graph)
+        chart = Chart.get_graph_file(Filenames.training_validation_loss_graph)
         plt.savefig(chart)   
         plt.close()         # Use close to ensure plt is reset for future use 
         
     def show_wordcloud(wordcloud, country):
         type = Hyper.curr_content
         filename = f"{type}_wordcloud_{country}.png"
-        wordcloudfig = os.path.join(Constants.images_dir, filename)
+        wordcloudfig = os.path.join(Filenames.images_dir, filename)
         plt.title(f"Word cloud for {country}")
         plt.imshow(wordcloud, interpolation='bilinear')
         plt.axis("off")
@@ -232,9 +232,9 @@ class Chart:
         if title:
             plt.title(title)
             
-        chart = Chart.get_graph_file(Constants.confusion_matrix_graph)
+        chart = Chart.get_graph_file(Filenames.confusion_matrix_graph)
         plt.savefig(chart)   
         plt.close()         # Use close to ensure plt is reset for future use 
         
     def get_graph_file(file):
-        return os.path.join(Constants.images_dir, file)
+        return os.path.join(Filenames.images_dir, file)
