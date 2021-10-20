@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 import numpy as np
-from config import Filenames, Hyper
+from config import Constants, Filenames, Hyper
 
 class Chart:
     def show_country_distribution(df):
@@ -62,7 +62,7 @@ class Chart:
         plt.rcParams["figure.figsize"] = (10,6)
 
         # Truncate any tweet lengths greater than 128.
-        lengths = [min(l, Filenames.tokens_max_length) for l in token_lengths]
+        lengths = [min(l, Constants.tokens_max_length) for l in token_lengths]
 
         # Plot the distribution of tweet lengths.
         sns.distplot(lengths, kde=False, rug=False)
