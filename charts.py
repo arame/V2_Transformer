@@ -70,7 +70,7 @@ class Chart:
         plt.title('Tweet Lengths')
         plt.xlabel('Tweet Length')
         plt.ylabel('# of Tweets') 
-        chart = Chart.get_graph_file(Filenames.Tweet_length_graph)
+        chart = Chart.get_graph_file(Filenames.tweet_length_graph)
         plt.savefig(chart)
         plt.close()         # Use close to ensure plt is reset for future use
 
