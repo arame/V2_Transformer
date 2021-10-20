@@ -38,6 +38,8 @@ class Hyper:
     is_distilbert = False
     is_albert = False
     
+    is_drop_view = True
+    
     contents = ["facemask", "lockdown", "vaccine"]
     curr_content = ""
     dict_countries = []
@@ -93,7 +95,6 @@ class Hyper:
         Filenames.pickle_train_encodings_file = join_name(content, Filenames.pickle_train_encodings_file_orig)
         Filenames.pickle_val_encodings_file = join_name(content, Filenames.pickle_val_encodings_file_orig)
         Filenames.pickle_test_encodings_file = join_name(content, Filenames.pickle_test_encodings_file_orig)
-
     
     [staticmethod]
     def rename_output_files(prefix):

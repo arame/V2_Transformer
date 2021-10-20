@@ -6,7 +6,7 @@ import os
 import torch as T
 from torch.utils.data import TensorDataset
 from sklearn.model_selection import train_test_split
-from config import Constants
+from config import Constants, Filenames
 from helper import Helper
 from tokens_bert import TokensBert
 from pickle_file import Pickle
@@ -67,17 +67,17 @@ def get_datasets(df):
     Helper.printline("Encode training data")
     Helper.printline("--------------------")
     t = TokensBert(X_train)
-    X_train_enc = Pickle.get_content(Constants.pickle_train_encodings_file, t.encode_tweets)
+    X_train_enc = Pickle.get_content(Filenames.pickle_train_encodings_file, t.encode_tweets)
    
     Helper.printline("Encode validation data")
     Helper.printline("----------------------")
     t = TokensBert(X_val)
-    X_val_enc = Pickle.get_content(Constants.pickle_val_encodings_file, t.encode_tweets)
+    X_val_enc = Pickle.get_content(Filenames.pickle_val_encodings_file, t.encode_tweets)
     
     Helper.printline("Encode test data")
     Helper.printline("----------------------")
     t = TokensBert(X_test)
-    X_test_enc = Pickle.get_content(Constants.pickle_test_encodings_file, t.encode_tweets)
+    X_test_enc = Pickle.get_content(Filenames.pickle_test_encodings_file, t.encode_tweets)
 
     train_dataset = get_dataset(y_train, X_train_enc)
     val_dataset = get_dataset(y_val, X_val_enc)

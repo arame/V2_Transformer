@@ -25,23 +25,40 @@ class Data:
             sys.exit(f"Error with database connection: {e}")
             
     def create_tweet_view_on_database(self):
-        sql_script = """ CREATE VIEW IF NOT EXISTS vw_tweets AS
+        if Hyper.is_drop_view:
+            self.drop_tweet_view_on_database()
+
+        country_selection = self.country_query_builder()
+        sql_script = f""" CREATE VIEW IF NOT EXISTS vw_tweets AS
                                 SELECT  country_code,
                                         clean_text,
                                         sentiment,
                                         is_facemask,
                                         is_lockdown, 
                                         is_vaccine
-                                FROM tweets WHERE length(country_code) = 2 AND (is_facemask + is_lockdown + is_vaccine > 0);
+                                FROM tweets WHERE {country_selection} AND (is_facemask + is_lockdown + is_vaccine > 0);
                         """
+        self.execute_script(sql_script, "Error with view creation: ") 
+
+    def drop_tweet_view_on_database(self):
+        sql_script = """DROP VIEW IF EXISTS vw_tweets;"""
+        self.execute_script(sql_script, "Error with view drop: ") 
+
+    def execute_script(self, sql_script, error_message):
         try:
             c = self.con.cursor()
             c.execute(sql_script)
             c.close
         except Exception as e:
-            sys.exit(f"Error with view creation: {e}")                 
+            sys.exit(error_message + e)
+                    
+    def country_query_builder(self):
+        country_selection_x = "' OR country_code = '".join(Hyper.selected_country_codes)
+        country_selection = f"(country_code = '{country_selection_x}')"
+        return country_selection                
       
     def get_tweets(self):
+        # Content will be one of facemask, lockdown, vaccine
         content = Hyper.curr_content
         sql_script = f''' SELECT * FROM vw_tweets WHERE is_{content} = 1'''
         Helper.printline("Read Tweets")
